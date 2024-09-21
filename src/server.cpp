@@ -43,15 +43,16 @@ int main()
     // accepting connection request
     int cSocket = accept(sSocket, nullptr, nullptr);
 
-    // recieving message
-    char buffer[1024] = { 0 };
-    recv(cSocket, buffer, sizeof(buffer), 0);
+    while (1)
+    {
+        // recieving message
+        char buffer[1024] = { 0 };
+        recv(cSocket, buffer, sizeof(buffer), 0);
 
-    // sending message
-    const char* message = "pong";
-    send(cSocket, message, strlen(message), 0);
-    cout << "Message from client: " << buffer << endl;
-
+        // sending message
+        send(cSocket, buffer, sizeof(buffer), 0);
+        // cout << "Message from client: " << buffer << endl;
+    }
     // closing the socket.
     close(sSocket);
 

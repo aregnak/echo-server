@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 #include <sys/socket.h>
 #include <cstring>
 #include <netinet/in.h>
@@ -33,14 +34,24 @@ int main()
         return -1;
     }
 
-    // sending message
-    const char* message = "ping";
-    send(cSocket, message, strlen(message), 0);
+    std::string message;
+    while (1)
+    {
+        std::cout << "Enter message to send: ";
+        std::getline(std::cin, message);
+        // std::cout << message;
+        send(cSocket, message.c_str(), strlen(message.c_str()), 0);
 
-    // recieving message
-    char buffer[1024] = { 0 };
-    recv(cSocket, buffer, sizeof(buffer), 0);
-    std::cout << "Return from server: " << buffer << std::endl;
+        // recieving message
+        char buffer[1024] = { 0 };
+        recv(cSocket, buffer, sizeof(buffer), 0);
+        std::cout << "server: " << buffer << std::endl;
+
+        if (message == "exit!")
+        {
+            break;
+        }
+    }
 
     close(cSocket);
 
