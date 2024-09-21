@@ -1,2 +1,2 @@
 # echo-server
-C++ echo server
+C++ echo server using sockets.
